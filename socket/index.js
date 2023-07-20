@@ -4,18 +4,18 @@ const dotenv = require('dotenv');
 const PORT = process.env.PORT || 8900;
 const http = require('http');
 const server = http.createServer(app)
-// const { Server } = require('socket.io');
+const { Server } = require('socket.io');
 
 
 const cors = require('cors');
 
 dotenv.config();
 app.use(cors());
-const io = require("socket.io")(server,{
-    transports : ['websocket','polling','flashsocket'],
+const io = new Server(server,{
     cors : {
         origin : "*",
     },  
+    transports : ['websocket','polling','flashsocket'],
     methods: ["GET", "POST"]
 });
 
