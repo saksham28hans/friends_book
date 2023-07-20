@@ -13,6 +13,7 @@ const Share = () => {
   const [file, setfile] = useState(null);
   const [uploaded, setuploaded] = useState(false);
   const [post, setpost] = useState({userId : user?._id});
+  const axiosInstance = axios.create({baseURL:process.env.REACT_APP_API_URL});
   // const [imgUrl, setimgUrl] = useState(initialState);
 
 
@@ -74,7 +75,7 @@ const Share = () => {
     {
       const createPost = async()=>{
         try {
-          await axios.post('/posts',post);
+          await axiosInstance.post('posts',post);
           window.location.reload();
         } catch (error) {
           

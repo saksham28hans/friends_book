@@ -1,9 +1,21 @@
-const io = require("socket.io")(8900,{
-    cors : {
-        origin : "http://localhost:3000",
-    },  
-});
+const express = require('express');
+const app = express();
+const dotenv = require('dotenv');
+const http = require('http');
+const server = http.createServer(app);
+const { Server } = require('socket-io');
+const io = new Server(server);
+const PORT = process.env.PORT || 8900;
+const cors = require('cors');
 
+dotenv.config();
+// const io = require("socket.io")(8900,{
+//     cors : {
+//         origin : "http://localhost:3000",
+//     },  
+// });
+
+app.use(cors());
 let users= [];
 
 const addUser = (userId,socketId)=>{
@@ -31,7 +43,6 @@ io.on("connection",(socket)=>{
         const user = getUser(receiverId);
         if(user)
         {
-        console.log("Hellllo")
         io.to(user.socketId).emit("getMessage",{
             senderId,
             text,
@@ -45,3 +56,7 @@ io.on("connection",(socket)=>{
         io.emit("getUsers",users);
     })
 })
+
+server.listen(PORT,()=>{
+    console.log(`Listening on port${PORT}`);
+});

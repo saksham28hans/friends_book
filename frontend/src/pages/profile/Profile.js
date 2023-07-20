@@ -13,10 +13,11 @@ const Profile = () => {
   const [user, setUser] = useState({});
   const username = useParams().username;
   const PF = process.env.REACT_APP_PUBLIC_FOLDER
+  const axiosInstance = axios.create({baseURL:process.env.REACT_APP_API_URL});
 
   useEffect(() => {
     const fetchUser = async()=>{
-       const res = await axios.get(`/users?username=${username}`)
+       const res = await axiosInstance.get(`users?username=${username}`)
        setUser(res.data)
     }
     fetchUser()
@@ -42,7 +43,7 @@ const handleChange = (e)=>{
               localStorage.setItem('user',JSON.stringify(updateUser));
               const updateImage = async ()=>{
                    try {
-                    await axios.put(`/users/${user._id}`,{userId:user._id,profilePicture:url})
+                    await axiosInstance.put(`users/${user._id}`,{userId:user._id,profilePicture:url})
                    } catch (error) {
                      
                    }
@@ -74,7 +75,7 @@ const handleChangeCover = (e)=>{
               localStorage.setItem('user',JSON.stringify(updateCover));
               const updateImageCover = async ()=>{
                    try {
-                    await axios.put(`/users/${user._id}`,{userId:user._id,coverPicture:url})
+                    await axiosInstance.put(`users/${user._id}`,{userId:user._id,coverPicture:url})
                    } catch (error) {
                      
                    }

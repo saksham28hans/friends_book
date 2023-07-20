@@ -6,9 +6,10 @@ import axios from "axios";
 const Message = ({message,own,sender}) => {
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
   const [sendBy, setsendBy] = useState(null);
+  const axiosInstance = axios.create({baseURL:process.env.REACT_APP_API_URL});
   useEffect(() => {
     const getSender = async ()=>{
-    const res = await axios.get(`/users?userId=${sender}`);
+    const res = await axiosInstance.get(`users?userId=${sender}`);
     setsendBy(res.data);
     }
     getSender();

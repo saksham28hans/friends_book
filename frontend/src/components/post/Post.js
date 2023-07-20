@@ -16,13 +16,14 @@ const Post = (props) => {
   const [isLiked, setisLiked] = useState(false);
   const [user, setUser] = useState({});
   const {user:currentUser} = useContext(AuthContext)
+  const axiosInstance = axios.create({baseURL:process.env.REACT_APP_API_URL});
 
   useEffect(() => {
    setisLiked(post.likes.includes(currentUser._id));
   }, [currentUser._id,post.likes]);
   useEffect(() => {
     const fetchUser = async()=>{
-       const res = await axios.get(`/users?userId=${post.userId}`)
+       const res = await axiosInstance.get(`users?userId=${post.userId}`)
 
        setUser(res.data)
     }
@@ -30,7 +31,7 @@ const Post = (props) => {
 }, [post.userId]);  
   const likehandler = async()=>{
     try {
-      const res= axios.put('/posts/'+post._id+'/like',{userId:currentUser._id})
+      const res= axiosInstance.put('posts/'+post._id+'/like',{userId:currentUser._id})
       
     } catch (error) {   
       console.log(error);

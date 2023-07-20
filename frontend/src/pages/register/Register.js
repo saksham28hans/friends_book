@@ -9,6 +9,7 @@ const Register = () => {
   const password = useRef();
   const confpassword = useRef();
   const navigate = useNavigate();
+  const axiosInstance = axios.create({baseURL:process.env.REACT_APP_API_URL});
 
   const handleSubmit = async(e)=>{
     e.preventDefault();
@@ -28,7 +29,7 @@ const Register = () => {
       }
 
       try {
-        const res = await axios.post("auth/register",user);
+        const res = await axiosInstance.post("auth/register",user);
         navigate('/login');
       } catch (error) {
         console.log(error);

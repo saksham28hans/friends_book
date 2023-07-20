@@ -19,6 +19,7 @@ const Messenger = () => {
     const [arrivalMessage, setarrivalMessage] = useState(null);
     const scrollRef = useRef();
     const [onlineFriends, setonlineFriends] = useState([]);
+    const axiosInstance = axios.create({baseURL:process.env.REACT_APP_API_URL});
     const socket = useRef()
 
 
@@ -51,7 +52,7 @@ const Messenger = () => {
     useEffect(() => {
        const getConversations = async()=>{
         try {
-            const res = await axios.get('/conversations/'+user._id)
+            const res = await axiosInstance.get('conversations/'+user._id)
             setconversation(res.data)
         } catch (error) {
             console.log(error);
@@ -64,7 +65,7 @@ const Messenger = () => {
     useEffect(() => {
         const getMessages = async()=>{
          try {
-           const res = await axios.get('/messages/'+currentChat?._id)
+           const res = await axiosInstance.get('messages/'+currentChat?._id)
            setmessages(res.data);
          } catch (error) {
            console.log(error);
@@ -94,7 +95,7 @@ const Messenger = () => {
         })
        
         try {
-            const res = await axios.post('/messages',message);
+            const res = await axiosInstance.post('messages',message);
             setmessages([...messages,res.data])   
             setnewMessage("");
         } catch (error) {

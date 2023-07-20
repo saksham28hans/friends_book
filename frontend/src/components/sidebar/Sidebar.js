@@ -7,9 +7,10 @@ import axios from "axios";
 import { Link } from 'react-router-dom';
 const Sidebar = () => {
   const [Users, setUsers] = useState(null);
+  const axiosInstance = axios.create({baseURL:process.env.REACT_APP_API_URL});
   useEffect(() => {
     const getallUsers = async()=>{
-   const res1 = await axios.get('/users/all')
+   const res1 = await axiosInstance.get('users/all')
     setUsers(res1.data)
     }
     getallUsers();

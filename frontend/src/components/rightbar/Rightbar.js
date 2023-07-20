@@ -11,7 +11,7 @@ const Rightbar = ({user}) => {
   const PF = process.env.REACT_APP_PUBLIC_FOLDER
   const [friends, setfriends] = useState([]);
   const {user:currentUser,dispatch} = useContext(AuthContext)
-  
+  const axiosInstance = axios.create({baseURL:process.env.REACT_APP_API_URL});
   
 
 
@@ -21,12 +21,12 @@ const Rightbar = ({user}) => {
         console.log(user);
           if(user)
           {
-          const friendList = await axios.get('/users/friends/'+user._id)
+          const friendList = await axiosInstance.get('users/friends/'+user._id)
           setfriends(friendList.data);
           }
           else
           {
-            const friendList_current = await axios.get('/users/friends/'+currentUser._id)
+            const friendList_current = await axiosInstance.get('users/friends/'+currentUser._id)
           setfriends(friendList_current.data);
           }
         } catch (error) {
@@ -61,7 +61,7 @@ const Rightbar = ({user}) => {
       try {
         if(followed)
         {
-          await axios.put('/users/'+user._id + '/unfollow',{
+          await axiosInstance.put('users/'+user._id + '/unfollow',{
             userId : currentUser._id,
           })
           const user_local = JSON.parse(localStorage.getItem("user"));
@@ -73,7 +73,7 @@ const Rightbar = ({user}) => {
         }
         else
         {
-          await axios.put('/users/'+user._id + '/follow',{
+          await axiosInstance.put('users/'+user._id + '/follow',{
             userId : currentUser._id,
           })
           const user_local1 = JSON.parse(localStorage.getItem("user"));

@@ -6,13 +6,13 @@ const ChatOnline = ({onlineFriends, currentId, setcurrentChat }) => {
   const [friends, setfriends] = useState([]);
   const [friendsOnline, setfriendsOnline] = useState([]);
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
-
+  const axiosInstance = axios.create({baseURL:process.env.REACT_APP_API_URL});
   const handleClick = async(user)=>{
    try {
-     const res = await axios.get(`/conversations/find/${currentId}/${user._id}`)
+     const res = await axiosInstance.get(`conversations/find/${currentId}/${user._id}`)
      if(!res.data)
      {
-      const newConv = await axios.post(`/conversations`,{senderId:currentId,receiverId:user._id});
+      const newConv = await axiosInstance.post(`conversations`,{senderId:currentId,receiverId:user._id});
       setcurrentChat(newConv.data)
      }
      else
@@ -25,7 +25,7 @@ const ChatOnline = ({onlineFriends, currentId, setcurrentChat }) => {
   useEffect(() => {
     const getFriends = async()=>{
       try {
-        const res = await axios.get("/users/friends/"+currentId)
+        const res = await axiosInstance.get("users/friends/"+currentId)
         setfriends(res.data)
       } catch (error) {
         console.log(error);
