@@ -14,8 +14,9 @@ app.use(cors());
 const io = require("socket.io")(server,{
     transports : ['websocket','polling','flashsocket'],
     cors : {
-        origin : "*",
+        origin : "https://friendsbook-zeta.vercel.app",
     },  
+    methods: ["GET", "POST"]
 });
 
 // const io = require('socket.io')(server, {
