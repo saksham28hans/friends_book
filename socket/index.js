@@ -19,8 +19,10 @@ app.use(cors());
 
 const io = require('socket.io')(server, {
     cors: {
-      origin: '*',
-    }
+        origin: true,
+        credentials: true,
+      },
+      allowEIO3: true,
 });
 
 let users= [];
