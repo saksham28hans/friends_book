@@ -1,11 +1,12 @@
 const express = require('express');
 const app = express();
 const dotenv = require('dotenv');
-const http = require('http');
-const server = http.createServer(app);
+const PORT = process.env.PORT || 8900;
+// const http = require('http');
+const server = app.listen(PORT)
 // const { Server } = require('socket.io');
 
-const PORT = process.env.PORT || 8900;
+
 const cors = require('cors');
 
 dotenv.config();
