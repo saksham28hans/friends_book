@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const dotenv = require('dotenv');
 const PORT = process.env.PORT || 8900;
-// const http = require('http');
+const https = require('https');
 const server = app.listen(PORT)
 // const { Server } = require('socket.io');
 
@@ -10,6 +10,7 @@ const server = app.listen(PORT)
 const cors = require('cors');
 
 dotenv.config();
+app.use(cors());
 // const io = require("socket.io")(8900,{
 //     cors : {
 //         origin : "http://localhost:3000",
