@@ -25,7 +25,8 @@ const Messenger = () => {
 
     useEffect(() => {
         
-      socket.current = io("ws://localhost:8900")
+    //   socket.current = io("ws://localhost:8900")
+      socket.current = io(process.env.REACT_APP_CHAT_URL)
       socket.current.on("getMessage",(data)=>{
         setarrivalMessage({
             senderId : data.senderId,
