@@ -3,7 +3,7 @@ const app = express();
 const dotenv = require('dotenv');
 const PORT = process.env.PORT || 8900;
 const https = require('https');
-const server = app.listen(PORT)
+const server = https.createServer(app)
 // const { Server } = require('socket.io');
 
 
@@ -11,19 +11,19 @@ const cors = require('cors');
 
 dotenv.config();
 app.use(cors());
-// const io = require("socket.io")(8900,{
-//     cors : {
-//         origin : "http://localhost:3000",
-//     },  
-// });
-
-const io = require('socket.io')(server, {
-    cors: {
-        origin: true,
-        credentials: true,
-      },
-      allowEIO3: true,
+const io = require("socket.io")(server,{
+    cors : {
+        origin : "*",
+    },  
 });
+
+// const io = require('socket.io')(server, {
+//     cors: {
+//         origin: true,
+//         credentials: true,
+//       },
+//       allowEIO3: true,
+// });
 
 let users= [];
 
@@ -66,6 +66,6 @@ io.on("connection",(socket)=>{
     })
 })
 
-// server.listen(PORT,()=>{
-//     console.log(`Listening on port${PORT}`);
-// });
+server.listen(PORT,()=>{
+    console.log(`Listening on port${PORT}`);
+});
