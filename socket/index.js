@@ -12,6 +12,7 @@ const cors = require('cors');
 dotenv.config();
 app.use(cors());
 const io = require("socket.io")(server,{
+    transports : ['websocket','polling','flashsocket'],
     cors : {
         origin : "*",
     },  
