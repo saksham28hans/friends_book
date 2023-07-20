@@ -14,7 +14,7 @@ app.use(cors());
 const io = require("socket.io")(server,{
     transports : ['websocket','polling','flashsocket'],
     cors : {
-        origin : "https://friendsbook-zeta.vercel.app",
+        origin : "*",
     },  
     methods: ["GET", "POST"]
 });
@@ -71,7 +71,7 @@ io.on("connection",(socket)=>{
 server.prependListener("request", (req, res) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
  });
- 
+
 server.listen(PORT,()=>{
     console.log(`Listening on port${PORT}`);
 });
