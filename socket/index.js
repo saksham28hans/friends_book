@@ -2,8 +2,8 @@ const express = require('express');
 const app = express();
 const dotenv = require('dotenv');
 const PORT = process.env.PORT || 8900;
-const http = require('http');
-const server = http.createServer(app)
+const https = require('https');
+const server = https.createServer(app)
 // const { Server } = require('socket.io');
 
 
