@@ -3,14 +3,16 @@ const app = express();
 const dotenv = require('dotenv');
 const PORT = process.env.PORT || 8900;
 const http = require('http');
-const server = http.createServer(app)
-const { Server } = require('socket.io');
+
 
 
 const cors = require('cors');
 
 dotenv.config();
 app.use(cors());
+
+const server = http.createServer(app)
+const { Server } = require('socket.io');
 const io = new Server(server,{
     cors : {
         origin : "*",
